@@ -42,3 +42,15 @@ const Pizzas = [
         precio: 700,
     },
 ];
+
+/* Definimos las constantes */
+const input = document.getElementsByClassName('input-number');
+const addform = document.getElementsByClassName('add-form');
+const list = document.getElementsByClassName('list');
+
+//Traemos elementos del LS si existen
+let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+// 3- Grabamos en LS
+const saveLocalStorage = (taskList) => {
+  localStorage.setItem('tasks', JSON.stringify(taskList))
+}
