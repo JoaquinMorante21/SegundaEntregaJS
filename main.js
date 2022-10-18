@@ -50,7 +50,22 @@ const list = document.getElementsByClassName('list');
 
 //Traemos elementos del LS si existen
 let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-// 3- Grabamos en LS
+// Grabamos en LS
 const saveLocalStorage = (taskList) => {
   localStorage.setItem('tasks', JSON.stringify(taskList))
 }
+//Crear el elemento a renderizar 
+const createTask = task => {
+`
+    <li class="card blue">
+        <h2>${task.nombre}</h2>
+        <h3>$${task.precio}</h3>
+    </li>
+`};
+
+const wrongTask = () =>{
+`
+    <li class="card red">
+        <h2>El id ${input} no coincide con ninguna pizza</h2>
+    </li>
+`};
