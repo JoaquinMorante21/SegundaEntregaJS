@@ -44,9 +44,9 @@ const Pizzas = [
 ];
 
 /* Definimos las constantes */
-const input = document.getElementsByClassName('input-number');
-const addform = document.getElementsByClassName('add-form');
-const list = document.getElementsByClassName('list');
+const form = document.getElementById('form');
+const input = document.getElementById('input');
+const list = document.getElementById('list');
 
 //Traemos elementos del LS si existen
 let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
@@ -54,18 +54,37 @@ let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 const saveLocalStorage = (taskList) => {
   localStorage.setItem('tasks', JSON.stringify(taskList))
 }
+
+const thisPizza = Pizzas.filter (Pizza => Pizza.id == tasks)
+
+
 //Crear el elemento a renderizar 
-const createTask = task => {
-`
+const createHTML = (task) => {
+    list.innerHTML = task.map (task =>{
+    `
     <li class="card blue">
-        <h2>${task.nombre}</h2>
+        <h2>${task.nombre}hola</h2>
         <h3>$${task.precio}</h3>
+    </li>
+    `}).join('');
+    }
+
+const wrongTask = (task) =>{
+`
+    <li class="card red">
+        <h2>El id ${task} no coincide con ninguna pizza</h2>
     </li>
 `};
 
-const wrongTask = () =>{
-`
-    <li class="card red">
-        <h2>El id ${input} no coincide con ninguna pizza</h2>
-    </li>
-`};
+const init = () => {
+    form.addEventListener('submit', e =>{
+        e.preventDefault();
+        const task = input.value;
+        input.value = '';
+        tasks = [...tasks, task];
+        saveLocalStorage(tasks);
+        createHTML(tasks, Pizzas);
+    })
+    document.addEventListener('DomContentLoaded', createHTML(tasks));
+}
+init();
