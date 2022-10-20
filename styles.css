@@ -1,18 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap");
+
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    text-decoration: none;
-    list-style: none;
-  }
-body{
-    background-color: #131415;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
 }
+
+body {
+  background: #252525;
+  font-family: "Poppins";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+h1 {
+  font-size: 2rem;
+  color: white;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
 .form{
     display: flex;
     align-items: center;
@@ -24,7 +38,7 @@ body{
     justify-content: space-around;
     margin-top: 2rem;
 }
-.conteiner{
+.container{
     margin-top: 4rem;
 }
 .input-number{
@@ -51,18 +65,31 @@ body{
     margin-top: 3rem;
 }
 .red{
-    background-color: red;
+    background-color: rgb(190, 11, 11);
 }
 .blue{
-    background-color: blue;
+    background-color:#11cfff;
 }
 .card{
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 50%;
-    border-radius: 3px;
+    border-radius: 7px;
     margin-bottom: 1rem;
     padding: 0.5rem 0 0.5rem 0;
     text-align: center;
+}
+
+.input-form{
+    background: linear-gradient(45deg, #5c7edd, #11cfff);
+    outline: none;
+    border: 0px solid;
+    padding: 10px 40px;
+    border-radius: 8px;
+    color: rgb(226, 226, 226);
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    font-weight: 700;
 }
