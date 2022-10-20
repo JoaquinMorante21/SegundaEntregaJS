@@ -48,43 +48,67 @@ const form = document.getElementById('form');
 const input = document.getElementById('input');
 const list = document.getElementById('list');
 
-//Traemos elementos del LS si existen
+// Traer elementos del LS si existen
 let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
-// Grabamos en LS
+// Grabar en LS
 const saveLocalStorage = (taskList) => {
   localStorage.setItem('tasks', JSON.stringify(taskList))
-}
+};
 
-const thisPizza = Pizzas.filter (Pizza => Pizza.id == tasks)
-
-
-//Crear el elemento a renderizar 
-const createHTML = (task) => {
-    list.innerHTML = task.map (task =>{
-    `
+//Crear el elemento a renderizar en caso que el ID sea entre 1 y 7
+const createTask = task =>
+`
     <li class="card blue">
-        <h2>${task.nombre}hola</h2>
+        <h2>${task.nombre}</h2>
         <h3>$${task.precio}</h3>
     </li>
-    `}).join('');
-    }
-
-const wrongTask = (task) =>{
+`;
+//Crear el elemento a renderizar en caso que el ID no este entre 1 y 7
+const wrongTask = () =>
 `
     <li class="card red">
-        <h2>El id ${task} no coincide con ninguna pizza</h2>
+        <h2>El id ingresado no coincide con ninguna pizza</h2>
     </li>
-`};
+`;
+//Crear el elemento a renderizar en caso que el usuario no escriba un numero
+const noNumber = () =>
+    `
+    <li class="card red">
+        <h2>Ingrese un numero por favor</h2>
+    </li>
+`;
+
+// Funcion que decide si el numero dado pertenece a un id
+const decider = (n) =>{
+    if (n < 1 || n > 7){
+        return wrongTask (n);
+    }
+    else if (n == null){
+        return noNumber ();
+    }
+    else{
+        return createTask (n);
+    }
+};
+
+// Renderizar la o las tareas y corre la funcion que decide a que grupo pertenece el ID
+renderTask = TodoList => {
+    list.innerHTML = TodoList.map(task => decider(task)).join('');
+    console.log(list.innerHTML)
+};
+
 
 const init = () => {
     form.addEventListener('submit', e =>{
         e.preventDefault();
         const task = input.value;
         input.value = '';
+        // Filtra que pizza es la que le pasaron el numero de id
+        const thisPizza = Pizzas.filter ((Pizza) => Pizza.id == task);
         tasks = [...tasks, task];
         saveLocalStorage(tasks);
-        createHTML(tasks, Pizzas);
+        renderTask(thisPizza);
     })
-    document.addEventListener('DomContentLoaded', createHTML(tasks));
+    document.addEventListener('DomContentLoaded', renderTask(tasks));
 }
 init();
